@@ -138,26 +138,10 @@ input[type=text]:focus{border-color:#7dffb0}
 </div>
 
 <script>
-/* ===== 邮箱已填好 ===== */
 var MY_EMAIL = "a201013b@petalmail.com";
-/* ===================== */
 
 var ans={};
 var END_TEXT="OK，所有的内容到此就真正结束了。这个网站还可以吧？静候您的反馈。说实话我有点紧张。额，拜拜？";
-
-var QUESTIONS=[
- ["a1","1.你是谁？"],
- ["a2","2.申请查看好感度！"],
- ["a3","3.喜欢的诗句/歌词/名言"],
- ["a4","4.有什么害怕的吗？"],
- ["a5","5.理想型是什么"],
- ["a6","6.你觉得我是什么样的"],
- ["a7","7.抖音昵称"],
- ["a8","8.想问我的吗"],
- ["a9","9.知道我在看着你吗"],
- ["a10","10.你怎么还没走"],
- ["a11","11.那个问题"]
-];
 
 function go(n){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
@@ -210,16 +194,24 @@ function typeEnd(){
 
 function finish(btn){
   btn.disabled=true;
-    btn.textContent='发送中…';
+  btn.textContent='发送中…';
 
   var body=new URLSearchParams();
   body.append('_subject','有人填完你的问卷了');
   body.append('_captcha','false');
   body.append('_template','table');
-  body.append('提交时间',new Date().toLocaleString('zh-CN'));
-  QUESTIONS.forEach(function(q){
-    body.append(q[1],ans[q[0]]||'（没填）');
-  });
+  body.append('time',new Date().toLocaleString('zh-CN'));
+  body.append('Q1_who_are_you',ans.a1||'(empty)');
+  body.append('Q2_favorability',ans.a2||'(empty)');
+  body.append('Q3_favorite_quote',ans.a3||'(empty)');
+  body.append('Q4_fear',ans.a4||'(empty)');
+  body.append('Q5_ideal_type',ans.a5||'(empty)');
+  body.append('Q6_how_you_see_me',ans.a6||'(empty)');
+  body.append('Q7_douyin_nickname',ans.a7||'(empty)');
+  body.append('Q8_want_to_ask',ans.a8||'(empty)');
+  body.append('Q9_know_i_am_watching',ans.a9||'(empty)');
+  body.append('Q10_why_not_leave',ans.a10||'(empty)');
+  body.append('Q11_that_question',ans.a11||'(empty)');
 
   fetch('https://formsubmit.co/ajax/'+MY_EMAIL,{
     method:'POST',
