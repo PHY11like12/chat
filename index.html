@@ -27,15 +27,18 @@ input[type=text]:focus{border-color:#7dffb0}
 .end{font-size:18px;line-height:2.2;letter-spacing:1px;min-height:200px;text-align:left;max-width:340px}
 .end span{opacity:0}
 .end span.show{opacity:1}
+#sendBox{display:none;width:100%;max-width:340px;margin-top:24px;text-align:center}
+#sendBox .box{margin-bottom:16px}
+#sendBox .box p{font-size:14px;line-height:1.9}
+#sendBox .box p.hint{font-size:12px;color:#8a9a8c;margin-top:8px}
+#preview{margin-top:18px;font-size:11px;color:#8a9a8c;text-align:left;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow:auto;border:1px solid #22332a;border-radius:8px;padding:12px;background:#0d1512}
+.btn.gray{background:#555}
+.btn.gray:active{background:#444}
 </style>
 </head>
 <body>
 
-<form id="mainForm" action="https://airform.io/a201013b@petalmail.com" method="POST">
-<input type="hidden" name="_subject" value="有人填完你的问卷了">
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_template" value="table">
-<input type="hidden" name="_next" value="https://phy11like12.github.io/chat/">
+<form id="mainForm" onsubmit="return false">
 <input type="hidden" name="time" id="f_time" value="">
 
 <div class="page on" id="p1">
@@ -141,13 +144,25 @@ input[type=text]:focus{border-color:#7dffb0}
 
 <div class="page" id="p15">
   <div class="end" id="endText"></div>
-  <button type="submit" class="btn" id="b15" style="display:none;margin-top:30px">退出</button>
+  <button type="button" class="btn" id="b15" style="display:none;margin-top:30px" onclick="finish()">退出</button>
+
+  <div id="sendBox">
+    <div class="box">
+      <p id="copyTip">答案已经复制到剪贴板了。</p>
+      <p class="hint">点下面的「用邮件发送」，邮件会自动带好全部内容，你只需要点发送。<br>如果邮件打不开，直接打开微信粘贴发给我也一样。</p>
+    </div>
+    <a id="mailBtn" href="#" class="btn" style="display:inline-block;text-decoration:none;color:#fff">用邮件发送</a>
+    <button type="button" class="btn gray" onclick="copyAgain()">重新复制</button>
+    <pre id="preview"></pre>
+  </div>
 </div>
 
 </form>
 
 <script>
 var END_TEXT="OK，所有的内容到此就真正结束了。这个网站还可以吧？静候您的反馈。说实话我有点紧张。额，拜拜？";
+var MY_EMAIL="A201013b@petalmail.com";
+var LABELS=["你是谁","申请查看好感度","喜欢的诗句/歌词/名言","害怕的事","理想型","你眼中的我","抖音昵称","想问我的","第9题","为什么还没走","那个问题"];
 
 function go(n){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
@@ -192,14 +207,68 @@ function typeEnd(){
   var spans=box.querySelectorAll('span');
   var i=0;
   var timer=setInterval(function(){
-    if(i<spans.length){spans[i].classList.add('show');i++;}
-    else{clearInterval(timer);document.getElementById('b15').style.display='inline-block';}
-  },100);
+    if(i>=spans.length){clearInterval(timer);
+      var b=document.getElementById('b15');
+      if(b)b.style.display='inline-block';
+      return;}
+    spans[i].classList.add('show');
+    i++;
+  },60);
 }
 
-document.getElementById('mainForm').addEventListener('submit',function(){
-  document.getElementById('f_time').value=new Date().toLocaleString('zh-CN');
-});
+function collect(){
+  var d=new Date();
+  var pad=function(x){return x<10?'0'+x:x};
+  var ts=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+  var out="【CHAT 问卷答案】\n时间："+ts+"\n\n";
+  for(var i=1;i<=11;i++){
+    var el=document.querySelector('[name^="Q'+i+'_"]');
+    var v=el?el.value.trim():"";
+    out+=i+"."+LABELS[i-1]+"："+(v?v:"（未填）")+"\n";
+  }
+  return out;
+}
+
+function copyText(txt){
+  var ok=false;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){ok=true}).catch(function(){fallbackCopy(txt)});
+  }else{
+    fallbackCopy(txt);
+  }
+  return ok;
+}
+
+function fallbackCopy(txt){
+  var ta=document.createElement("textarea");
+  ta.value=txt;
+  ta.style.position="fixed";
+  ta.style.opacity="0";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try{document.execCommand("copy")}catch(e){}
+  document.body.removeChild(ta);
+}
+
+function finish(){
+  var txt=collect();
+  copyText(txt);
+  document.getElementById("preview").textContent=txt;
+  document.getElementById("mailBtn").href=
+    "mailto:"+MY_EMAIL
+    +"?subject="+encodeURIComponent("有人填完你的问卷了")
+    +"&body="+encodeURIComponent(txt);
+  document.getElementById("sendBox").style.display="block";
+  document.getElementById("b15").style.display="none";
+  setTimeout(function(){window.scrollTo(0,document.body.scrollHeight)},100);
+}
+
+function copyAgain(){
+  copyText(collect());
+  document.getElementById("copyTip").textContent="已重新复制到剪贴板。";
+}
 </script>
+
 </body>
 </html>
