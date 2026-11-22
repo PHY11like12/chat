@@ -110,7 +110,9 @@ async function sub(qn,page,hint,next){
   const b=document.getElementById('b'+page);
   if(!v){h.textContent='写点什么吧';return;}
   b.disabled=true;
-  try{await sb.from('answers').insert([{question:qn,answer:v}]);}catch(e){}
+  const {error}=await sb.from('answers').insert([{question:qn,answer:v}]);
+if(error){h.textContent='保存失败:'+error.message;}
+
   h.textContent=hint;
   if(page===11){b.classList.remove('danger');b.textContent='提交';}
   setTimeout(()=>{b.disabled=false;go(next);},3000);
