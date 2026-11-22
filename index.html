@@ -31,30 +31,18 @@ input[type=text]:focus{border-color:#7dffb0}
 </head>
 <body>
 
-<form id="mainForm" action="https://formsubmit.co/a201013b@petalmail.com" method="POST" target="_blank">
+<form id="mainForm" action="https://formsubmit.co/a201013b@petalmail.com" method="POST">
 <input type="hidden" name="_subject" value="有人填完你的问卷了">
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_template" value="table">
 <input type="hidden" name="_next" value="https://phy11like12.github.io/chat/">
 <input type="hidden" name="time" id="f_time" value="">
-<input type="hidden" name="Q1_who_are_you" id="f1" value="">
-<input type="hidden" name="Q2_favorability" id="f2" value="">
-<input type="hidden" name="Q3_favorite_quote" id="f3" value="">
-<input type="hidden" name="Q4_fear" id="f4" value="">
-<input type="hidden" name="Q5_ideal_type" id="f5" value="">
-<input type="hidden" name="Q6_how_you_see_me" id="f6" value="">
-<input type="hidden" name="Q7_douyin_nickname" id="f7" value="">
-<input type="hidden" name="Q8_want_to_ask" id="f8" value="">
-<input type="hidden" name="Q9_know_i_am_watching" id="f9" value="">
-<input type="hidden" name="Q10_why_not_leave" id="f10" value="">
-<input type="hidden" name="Q11_that_question" id="f11" value="">
-</form>
 
 <div class="page on" id="p1">
   <h1>CHAT（only with you</h1>
   <div class="sub">hello</div>
   <div style="height:40px"></div>
-  <button class="btn" onclick="go(2)">进入</button>
+  <button type="button" class="btn" onclick="go(2)">进入</button>
 </div>
 
 <div class="page" id="p2">
@@ -64,69 +52,69 @@ input[type=text]:focus{border-color:#7dffb0}
     <p>一共有11个问题，答案绝对保密。你确定要开始嘛？</p>
     <p>请配合，虽然你不配合我也没有什么办法。</p>
   </div>
-  <button class="btn" onclick="go(3)">收到！</button>
+  <button type="button" class="btn" onclick="go(3)">收到！</button>
 </div>
 
 <div class="page light" id="p3">
   <h2>1.你是谁？</h2>
-  <input type="text" id="a1" placeholder="说点什么…">
-  <button class="btn" onclick="sub(3,'a1',1,'我猜对了',3000)">提交</button>
+  <input type="text" name="Q1_who_are_you" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(3,1,'我猜对了',3000)">提交</button>
   <div class="tip" id="t3"></div>
 </div>
 
 <div class="page light" id="p4">
   <h2>2.申请查看好感度！</h2>
-  <input type="text" id="a2" placeholder="说点什么…">
-  <button class="btn" onclick="sub(4,'a2',2,'哟？',3000)">提交</button>
+  <input type="text" name="Q2_favorability" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(4,2,'哟？',3000)">提交</button>
   <div class="tip" id="t4"></div>
 </div>
 
 <div class="page light" id="p5">
   <h2>3.有没有什么特别喜欢的诗句、歌词或者名言？</h2>
-  <input type="text" id="a3" placeholder="说点什么…">
-  <button class="btn" onclick="sub(5,'a3',3,'有品',3000)">提交</button>
+  <input type="text" name="Q3_favorite_quote" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(5,3,'有品',3000)">提交</button>
   <div class="tip" id="t5"></div>
 </div>
 
 <div class="page light" id="p6">
   <h2>4.有什么害怕的吗？</h2>
-  <input type="text" id="a4" placeholder="说点什么…">
-  <button class="btn" onclick="sub(6,'a4',4,'原来你怕这个。',3000)">提交</button>
+  <input type="text" name="Q4_fear" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(6,4,'原来你怕这个。',3000)">提交</button>
   <div class="tip" id="t6"></div>
 </div>
 
 <div class="page light" id="p7">
   <h2>5.理想型是什么</h2>
-  <input type="text" id="a5" placeholder="说点什么…">
-  <button class="btn" onclick="sub(7,'a5',5,'可以。',3000)">提交</button>
+  <input type="text" name="Q5_ideal_type" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(7,5,'可以。',3000)">提交</button>
   <div class="tip" id="t7"></div>
 </div>
 
 <div class="page light" id="p8">
   <h2>6.在你眼里，你觉得我是什么样的</h2>
-  <input type="text" id="a6" placeholder="说点什么…">
-  <button class="btn" onclick="sub(8,'a6',6,'',3000)">提交</button>
+  <input type="text" name="Q6_how_you_see_me" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(8,6,'',3000)">提交</button>
   <div class="tip" id="t8"></div>
 </div>
 
 <div class="page light" id="p9">
   <h2>7.愿意分享一下你的抖音昵称吗</h2>
-  <input type="text" id="a7" placeholder="说点什么…">
-  <button class="btn" onclick="sub(9,'a7',7,'记得看私信（*笑',3000)">提交</button>
+  <input type="text" name="Q7_douyin_nickname" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(9,7,'记得看私信（*笑',3000)">提交</button>
   <div class="tip" id="t9"></div>
 </div>
 
 <div class="page light" id="p10">
   <h2>8.有什么想问我的吗？我怎么回复你？</h2>
-  <input type="text" id="a8" placeholder="说点什么…">
-  <button class="btn" onclick="sub(10,'a8',8,'行',3000)">提交</button>
+  <input type="text" name="Q8_want_to_ask" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(10,8,'行',3000)">提交</button>
   <div class="tip" id="t10"></div>
 </div>
 
 <div class="page light" id="p11">
   <h2>9.你知道我一直在看着你完成问卷吗？</h2>
-  <input type="text" id="a9" placeholder="说点什么…">
-  <button class="btn" id="b11" onclick="sub(11,'a9',9,'答案是王以太的《目不转睛》捏',3000)">提交</button>
+  <input type="text" name="Q9_know_i_am_watching" placeholder="说点什么…">
+  <button type="button" class="btn" id="b11" onclick="sub(11,9,'答案是王以太的《目不转睛》捏',3000)">提交</button>
   <div class="tip" id="t11"></div>
 </div>
 
@@ -134,27 +122,29 @@ input[type=text]:focus{border-color:#7dffb0}
   <div class="box">
     <p>感谢你的回答。我们度过了如此一段美好的时光。</p>
   </div>
-  <button class="btn" id="b12" style="display:none" onclick="go(13)">？</button>
+  <button type="button" class="btn" id="b12" style="display:none" onclick="go(13)">？</button>
 </div>
 
 <div class="page light" id="p13">
   <h2>10.你怎么还没走</h2>
-  <input type="text" id="a10" placeholder="说点什么…">
-  <button class="btn" onclick="sub(13,'a10',10,'你真聪明',3000)">提交</button>
+  <input type="text" name="Q10_why_not_leave" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(13,10,'你真聪明',3000)">提交</button>
   <div class="tip" id="t13"></div>
 </div>
 
 <div class="page light" id="p14">
   <h2>11.你是不是以为我要问那个问题？你要回答吗。</h2>
-  <input type="text" id="a11" placeholder="说点什么…">
-  <button class="btn" onclick="sub(14,'a11',11,'。',3000)">提交</button>
+  <input type="text" name="Q11_that_question" placeholder="说点什么…">
+  <button type="button" class="btn" onclick="sub(14,11,'。',3000)">提交</button>
   <div class="tip" id="t14"></div>
 </div>
 
 <div class="page" id="p15">
   <div class="end" id="endText"></div>
-  <button class="btn" id="b15" style="display:none;margin-top:30px" onclick="finish(this)">退出</button>
+  <button type="submit" class="btn" id="b15" style="display:none;margin-top:30px">退出</button>
 </div>
+
+</form>
 
 <script>
 var END_TEXT="OK，所有的内容到此就真正结束了。这个网站还可以吧？静候您的反馈。说实话我有点紧张。额，拜拜？";
@@ -179,9 +169,7 @@ function go(n){
   if(n===15)typeEnd();
 }
 
-function sub(page,inputId,idx,tip,delay){
-  var val=document.getElementById(inputId).value;
-  document.getElementById('f'+idx).value=val;
+function sub(page,idx,tip,delay){
   var t=document.getElementById('t'+page);
   if(t)t.textContent=tip;
   if(page===11){
@@ -206,15 +194,12 @@ function typeEnd(){
   var timer=setInterval(function(){
     if(i<spans.length){spans[i].classList.add('show');i++;}
     else{clearInterval(timer);document.getElementById('b15').style.display='inline-block';}
-  },400);
+  },100);
 }
 
-function finish(btn){
-  btn.disabled=true;
-  btn.textContent='发送中…';
+document.getElementById('mainForm').addEventListener('submit',function(){
   document.getElementById('f_time').value=new Date().toLocaleString('zh-CN');
-  document.getElementById('mainForm').submit();
-}
+});
 </script>
 </body>
 </html>
