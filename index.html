@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHAT</title>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -87,7 +88,8 @@ button.danger{background:#c0392b;color:#fff;border-color:#ff6b5b;}
 <div class="page" id="p15"><div class="center">说实话我有点紧张。拜拜。for real</div></div>
 
 <script> 
-  const sb = supabase.createClient('你的Supabase项目URL', '你的anon public key');
+ const sb = (typeof supabase!=='undefined') ? supabase.createClient('https://mxxmjjeuiqwsitvymioq.supabase.co', 'sb_publishable_EVPBZdx6JnBJINsNf8Zy2Q_6S9BNx0d') : null;
+
 let cur=1;
 
 function go(n){
