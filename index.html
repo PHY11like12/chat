@@ -86,7 +86,8 @@ button.danger{background:#c0392b;color:#fff;border-color:#ff6b5b;}
 
 <div class="page" id="p15"><div class="center">说实话我有点紧张。拜拜。for real</div></div>
 
-<script>                                                                           
+<script> 
+  const sb = supabase.createClient('你的Supabase项目URL', '你的anon public key');
 let cur=1;
 
 function go(n){
