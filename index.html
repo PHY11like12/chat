@@ -2,123 +2,236 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>CHAT</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-  min-height:100vh;background:#0d1f17;color:#e8f5ee;
-  display:flex;align-items:center;justify-content:center;
-  padding:24px;transition:background .6s;
-}
-body.light{background:#f0f7f2;color:#1a2e25;}
-.page{display:none;width:100%;max-width:420px;animation:fade .5s;}
-.page.on{display:block;}
-@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.title{font-size:28px;font-weight:700;text-align:center;letter-spacing:1px;margin-bottom:14px;line-height:1.4;}
-.sub{text-align:center;font-size:13px;opacity:.55;margin-bottom:30px;}
-.box{
-  background:#0d1f17;border:1px solid #39ff88;border-radius:14px;
-  padding:26px 22px;line-height:2;font-size:15px;
-  box-shadow:0 0 18px rgba(57,255,136,.12);
-}
-.box p{margin-bottom:6px;}
-textarea{
-  width:100%;min-height:96px;margin:18px 0;background:#0d1f17;color:#e8f5ee;
-  border:1px solid #39ff88;border-radius:10px;padding:12px;
-  font-size:15px;font-family:inherit;resize:vertical;
-}
-textarea:focus{outline:none;box-shadow:0 0 12px rgba(57,255,136,.3);}
-body.light textarea{color:#1a2e25;background:#fff;}
-.q{font-size:19px;font-weight:600;margin-bottom:4px;line-height:1.6;}
-.btns{display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap;}
-button{
-  background:#0d1f17;color:#39ff88;border:1px solid #39ff88;
-  border-radius:10px;padding:12px 30px;font-size:15px;cursor:pointer;
-  transition:.25s;font-family:inherit;
-}
-body.light button{background:#0d1f17;}
-button:active{transform:scale(.96);}
-button.danger{background:#c0392b;color:#fff;border-color:#ff6b5b;}
-.hint{text-align:center;font-size:13px;opacity:.5;margin-top:18px;min-height:18px;}
-.center{text-align:center;line-height:2.2;font-size:16px;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;overflow-x:hidden}
+.page{display:none;min-height:100vh;padding:24px;flex-direction:column;justify-content:center;align-items:center;text-align:center;animation:fade .4s}
+.page.on{display:flex}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.light{background:#eef7ef;color:#1a1a1a}
+h1{font-size:28px;font-weight:700;letter-spacing:1px;margin-bottom:14px;line-height:1.4}
+h2{font-size:21px;font-weight:600;margin-bottom:26px;line-height:1.6}
+.sub{font-size:13px;color:#8a9a8c;margin-top:10px;letter-spacing:.5px}
+.box{width:100%;max-width:340px;background:#0d1f16;border:1px solid #39ff88;border-radius:10px;padding:20px 18px;margin-bottom:26px;text-align:left}
+.box p{font-size:15px;line-height:2;color:#d8ffe8}
+input[type=text]{width:100%;max-width:340px;background:#0d1f16;border:1px solid #39ff88;border-radius:10px;padding:14px;font-size:16px;color:#fff;margin-bottom:20px;outline:none}
+input[type=text]:focus{border-color:#7dffb0}
+.light input[type=text]{background:#fff;color:#1a1a1a;border-color:#7dffb0}
+.btn{background:#3aa06a;color:#fff;border:none;border-radius:10px;padding:13px 34px;font-size:16px;margin:6px;min-width:120px;letter-spacing:1px}
+.btn:active{transform:scale(.96);background:#2f8a58}
+.btn.red{background:#c0392b}
+.btn.red:active{background:#a93226}
+.tip{font-size:13px;color:#8a9a8c;margin-top:18px;min-height:20px;letter-spacing:.5px}
+.end{font-size:18px;line-height:2.2;letter-spacing:1px;min-height:200px;text-align:left;max-width:340px}
+.end span{opacity:0}
+.end span.show{opacity:1}
 </style>
 </head>
 <body>
 
 <div class="page on" id="p1">
-  <div class="title">CHAT（only with you</div>
+  <h1>CHAT（only with you</h1>
   <div class="sub">hello</div>
-  <div class="btns"><button onclick="go(2)">进入</button></div>
+  <div style="height:40px"></div>
+  <button class="btn" onclick="go(2)">进入</button>
 </div>
 
 <div class="page" id="p2">
   <div class="box">
     <p>我就知道你要来的。</p>
     <p>你好，我是Rayane（很明显）。</p>
-    <p>一共有11个问题。你确定要开始嘛？</p>
-    <p>(请配合，虽然你不配合我也没有什么办法。</p>
+    <p>一共有11个问题，答案绝对保密。你确定要开始嘛？</p>
+    <p>请配合，虽然你不配合我也没有什么办法。</p>
   </div>
-  <div class="btns">
-    <button onclick="go(3)">确定</button>
-    <button onclick="go(3)">当然</button>
-  </div>
+  <button class="btn" onclick="go(3)">收到！</button>
 </div>
 
-<div class="page" id="p3"><div class="q">1.你是谁？</div><textarea id="a1"></textarea><div class="btns"><button id="b3" onclick="sub(1,3,'我猜对了',4)">提交</button></div><div class="hint" id="h3"></div></div>
-<div class="page" id="p4"><div class="q">2.申请查看好感度！</div><textarea id="a2"></textarea><div class="btns"><button id="b4" onclick="sub(2,4,'哟？',5)">提交</button></div><div class="hint" id="h4"></div></div>
-<div class="page" id="p5"><div class="q">3.有没有什么特别喜欢的诗句、歌词或者名言？</div><textarea id="a3"></textarea><div class="btns"><button id="b5" onclick="sub(3,5,'有品',6)">提交</button></div><div class="hint" id="h5"></div></div>
-<div class="page" id="p6"><div class="q">4.有什么害怕的吗？</div><textarea id="a4"></textarea><div class="btns"><button id="b6" onclick="sub(4,6,'原来你怕这个。',7)">提交</button></div><div class="hint" id="h6"></div></div>
-<div class="page" id="p7"><div class="q">5.理想型是什么</div><textarea id="a5"></textarea><div class="btns"><button id="b7" onclick="sub(5,7,'可以。',8)">提交</button></div><div class="hint" id="h7"></div></div>
-<div class="page" id="p8"><div class="q">6.在你眼里，你觉得我是什么样的</div><textarea id="a6"></textarea><div class="btns"><button id="b8" onclick="sub(6,8,'',9)">提交</button></div><div class="hint" id="h8"></div></div>
-<div class="page" id="p9"><div class="q">7.愿意分享一下你的抖音昵称吗</div><textarea id="a7"></textarea><div class="btns"><button id="b9" onclick="sub(7,9,'记得看私信（*笑',10)">提交</button></div><div class="hint" id="h9"></div></div>
-<div class="page" id="p10"><div class="q">8.有什么想问我的吗？我怎么回复你？</div><textarea id="a8"></textarea><div class="btns"><button id="b10" onclick="sub(8,10,'行',11)">提交</button></div><div class="hint" id="h10"></div></div>
-<div class="page" id="p11"><div class="q">9.你知道我一直在看着你完成问卷吗？</div><textarea id="a9"></textarea><div class="btns"><button id="b11" onclick="sub(9,11,'答案是王以太的《目不转睛》捏',12)">提交</button></div><div class="hint" id="h11"></div></div>
-
-<div class="page" id="p12" onclick="go(13)">
-  <div class="center">感谢你的回答。<br>我们度过了如此一段美好的时光。</div>
+<div class="page light" id="p3">
+  <h2>1.你是谁？</h2>
+  <input type="text" id="a1" placeholder="说点什么…">
+  <button class="btn" onclick="sub(3,'a1','我猜对了',3000)">提交</button>
+  <div class="tip" id="t3"></div>
 </div>
 
-<div class="page" id="p13"><div class="q">10.你怎么还没走</div><textarea id="a10"></textarea><div class="btns"><button id="b13" onclick="sub(10,13,'你真聪明',14)">提交</button></div><div class="hint" id="h13"></div></div>
-<div class="page" id="p14"><div class="q">11.你是不是以为我要问那个问题？你要回答吗。</div><textarea id="a11"></textarea><div class="btns"><button id="b14" onclick="sub(11,14,'。',15)">提交</button></div><div class="hint" id="h14"></div></div>
+<div class="page light" id="p4">
+  <h2>2.申请查看好感度！</h2>
+  <input type="text" id="a2" placeholder="说点什么…">
+  <button class="btn" onclick="sub(4,'a2','哟？',3000)">提交</button>
+  <div class="tip" id="t4"></div>
+</div>
 
-<div class="page" id="p15"><div class="center">说实话我有点紧张。拜拜。for real</div></div>
+<div class="page light" id="p5">
+  <h2>3.有没有什么特别喜欢的诗句、歌词或者名言？</h2>
+  <input type="text" id="a3" placeholder="说点什么…">
+  <button class="btn" onclick="sub(5,'a3','有品',3000)">提交</button>
+  <div class="tip" id="t5"></div>
+</div>
 
-<script> 
- const sb = (typeof supabase!=='undefined') ? supabase.createClient('https://mxxmjjeuiqwsitvymioq.supabase.co', 'sb_publishable_EVPBZdx6JnBJINsNf8Zy2Q_6S9BNx0d') : null;
+<div class="page light" id="p6">
+  <h2>4.有什么害怕的吗？</h2>
+  <input type="text" id="a4" placeholder="说点什么…">
+  <button class="btn" onclick="sub(6,'a4','原来你怕这个。',3000)">提交</button>
+  <div class="tip" id="t6"></div>
+</div>
 
-let cur=1;
+<div class="page light" id="p7">
+  <h2>5.理想型是什么</h2>
+  <input type="text" id="a5" placeholder="说点什么…">
+  <button class="btn" onclick="sub(7,'a5','可以。',3000)">提交</button>
+  <div class="tip" id="t7"></div>
+</div>
+
+<div class="page light" id="p8">
+  <h2>6.在你眼里，你觉得我是什么样的</h2>
+  <input type="text" id="a6" placeholder="说点什么…">
+  <button class="btn" onclick="sub(8,'a6','',3000)">提交</button>
+  <div class="tip" id="t8"></div>
+</div>
+
+<div class="page light" id="p9">
+  <h2>7.愿意分享一下你的抖音昵称吗</h2>
+  <input type="text" id="a7" placeholder="说点什么…">
+  <button class="btn" onclick="sub(9,'a7','记得看私信（*笑',3000)">提交</button>
+  <div class="tip" id="t9"></div>
+</div>
+
+<div class="page light" id="p10">
+  <h2>8.有什么想问我的吗？我怎么回复你？</h2>
+  <input type="text" id="a8" placeholder="说点什么…">
+  <button class="btn" onclick="sub(10,'a8','行',3000)">提交</button>
+  <div class="tip" id="t10"></div>
+</div>
+
+<div class="page light" id="p11">
+  <h2>9.你知道我一直在看着你完成问卷吗？</h2>
+  <input type="text" id="a9" placeholder="说点什么…">
+  <button class="btn" id="b11" onclick="sub(11,'a9','答案是王以太的《目不转睛》捏',3000)">提交</button>
+  <div class="tip" id="t11"></div>
+</div>
+
+<div class="page" id="p12">
+  <div class="box">
+    <p>感谢你的回答。我们度过了如此一段美好的时光。</p>
+  </div>
+  <button class="btn" id="b12" style="display:none" onclick="go(13)">？</button>
+</div>
+
+<div class="page light" id="p13">
+  <h2>10.你怎么还没走</h2>
+  <input type="text" id="a10" placeholder="说点什么…">
+  <button class="btn" onclick="sub(13,'a10','你真聪明',3000)">提交</button>
+  <div class="tip" id="t13"></div>
+</div>
+
+<div class="page light" id="p14">
+  <h2>11.你是不是以为我要问那个问题？你要回答吗。</h2>
+  <input type="text" id="a11" placeholder="说点什么…">
+  <button class="btn" onclick="sub(14,'a11','。',3000)">提交</button>
+  <div class="tip" id="t14"></div>
+</div>
+
+<div class="page" id="p15">
+  <div class="end" id="endText"></div>
+  <button class="btn" id="b15" style="display:none;margin-top:30px" onclick="finish(this)">退出</button>
+</div>
+
+<script>
+/* ===== 邮箱已填好 ===== */
+var MY_EMAIL = "a201013b@petalmail.com";
+/* ===================== */
+
+var ans={};
+var END_TEXT="OK，所有的内容到此就真正结束了。这个网站还可以吧？静候您的反馈。说实话我有点紧张。额，拜拜？";
+
+var QUESTIONS=[
+ ["a1","1.你是谁？"],
+ ["a2","2.申请查看好感度！"],
+ ["a3","3.喜欢的诗句/歌词/名言"],
+ ["a4","4.有什么害怕的吗？"],
+ ["a5","5.理想型是什么"],
+ ["a6","6.你觉得我是什么样的"],
+ ["a7","7.抖音昵称"],
+ ["a8","8.想问我的吗"],
+ ["a9","9.知道我在看着你吗"],
+ ["a10","10.你怎么还没走"],
+ ["a11","11.那个问题"]
+];
 
 function go(n){
-  document.getElementById('p'+cur).classList.remove('on');
-  cur=n;
-  document.getElementById('p'+n).classList.add('on');
-  document.body.classList.toggle('light',n>=3&&n<=14);
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
+  var el=document.getElementById('p'+n);
+  if(el)el.classList.add('on');
   window.scrollTo(0,0);
   if(n===11){
-    setTimeout(()=>{
-      const b=document.getElementById('b11');
-      b.classList.add('danger');b.textContent='知道';
+    setTimeout(function(){
+      var b=document.getElementById('b11');
+      if(b){b.classList.add('red');b.textContent='知道';}
     },1000);
   }
-  if(n===15){setTimeout(()=>{window.close();},3000);}
+  if(n===12){
+    setTimeout(function(){
+      var b=document.getElementById('b12');
+      if(b)b.style.display='inline-block';
+    },3000);
+  }
+  if(n===15)typeEnd();
 }
 
-async function sub(qn,page,hint,next){
-  const v=document.getElementById('a'+qn).value.trim();
-  const h=document.getElementById('h'+page);
-  const b=document.getElementById('b'+page);
-  if(!v){h.textContent='写点什么吧';return;}
-  b.disabled=true;
-  const {error}=await sb.from('answers').insert([{question:qn,answer:v}]);
-if(error){h.textContent='保存失败:'+error.message;}
+function sub(page,id,tip,delay){
+  ans[id]=document.getElementById(id).value;
+  var t=document.getElementById('t'+page);
+  if(t)t.textContent=tip;
+  if(page===11){
+    var b=document.getElementById('b11');
+    if(b){b.classList.remove('red');b.textContent='提交';}
+  }
+  if(delay>0)setTimeout(function(){go(page+1)},delay);
+}
 
-  h.textContent=hint;
-  if(page===11){b.classList.remove('danger');b.textContent='提交';}
-  setTimeout(()=>{b.disabled=false;go(next);},3000);
+function typeEnd(){
+  var box=document.getElementById('endText');
+  if(box.dataset.done)return;
+  box.dataset.done='1';
+  box.innerHTML='';
+  END_TEXT.split('').forEach(function(c){
+    var s=document.createElement('span');
+    s.textContent=c;
+    box.appendChild(s);
+  });
+  var spans=box.querySelectorAll('span');
+  var i=0;
+  var timer=setInterval(function(){
+    if(i<spans.length){spans[i].classList.add('show');i++;}
+    else{clearInterval(timer);document.getElementById('b15').style.display='inline-block';}
+  },400);
+}
+
+function finish(btn){
+  btn.disabled=true;
+    btn.textContent='发送中…';
+
+  var body=new URLSearchParams();
+  body.append('_subject','有人填完你的问卷了');
+  body.append('_captcha','false');
+  body.append('_template','table');
+  body.append('提交时间',new Date().toLocaleString('zh-CN'));
+  QUESTIONS.forEach(function(q){
+    body.append(q[1],ans[q[0]]||'（没填）');
+  });
+
+  fetch('https://formsubmit.co/ajax/'+MY_EMAIL,{
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded','Accept':'application/json'},
+    body:body.toString()
+  }).catch(function(){}).finally(function(){
+    try{localStorage.clear();}catch(e){}
+    try{window.close();}catch(e){}
+    setTimeout(function(){
+      document.body.innerHTML='<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;color:#8a9a8c;font-size:14px">已退出</div>';
+    },400);
+  });
 }
 </script>
 </body>
